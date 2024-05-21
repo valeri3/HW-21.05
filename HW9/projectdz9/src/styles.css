@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: #006948;
+}
+
+h1, p {
+  text-align: center;
+}

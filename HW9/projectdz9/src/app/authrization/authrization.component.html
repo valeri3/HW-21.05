@@ -1,0 +1,56 @@
+<!--class work-->
+<!--<form  #myForm="ngForm" method="post" (ngSubmit)="onSubmit(myForm)">-->
+
+<!--  <p>-->
+<!--    <label>Email</label><br>-->
+<!--    <input name="email" ngModel required email />-->
+<!--  </p>-->
+<!--  <p>-->
+<!--    <label>Password</label><br>-->
+<!--    <input name="password" ngModel required />-->
+<!--  </p>-->
+<!--  <input type="submit" [disabled]="myForm.invalid" value="Отправить" />-->
+<!--</form>-->
+<!--<div *ngIf="inf">-->
+<!--  <h3>Res:</h3>-->
+<!--  <pre>{{ inf | json }}</pre>-->
+<!--</div>-->
+
+<!--HomeWork-->
+<form [formGroup]="AuthorizeForm" novalidate (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="email">E-mail</label>
+    <input type="email" id="email" formControlName="email" required class="form-control"/>
+    <div *ngIf="AuthorizeForm.controls['email'].invalid && AuthorizeForm.controls['email'].touched" class="alert">
+      Введите свою ел. почту
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" formControlName="password" required minlength="6" class="form-control"/>
+    <div *ngIf="AuthorizeForm.controls['password'].invalid && AuthorizeForm.controls['password'].touched" class="alert">
+      Минимальная длина пароля 6 символов
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-check-label">
+      <input type="checkbox" formControlName="checkbox" class="form-check-input"> Я прочитал/а пользовательское
+      соглашение
+    </label>
+  </div>
+
+  <div class="form-group" formArrayName="hobbies">
+    <div *ngFor="let hobby of getFormsControls().controls; let i = index" class="hobby-item">
+      <input type="text" [formControlName]="i" class="form-control hobby-input">
+      <button type="button" (click)="removeHobby(i)" class="btn btn-danger hobby-remove-btn">Убрать</button>
+    </div>
+    <button type="button" (click)="addHobby()" class="btn btn-primary hobby-add-btn">Добавить хобби</button>
+  </div>
+
+  <button type="submit" [disabled]="AuthorizeForm.invalid || !(AuthorizeForm.get('checkbox')?.value)"
+          class="btn btn-submit">Отправить
+  </button>
+</form>
+
